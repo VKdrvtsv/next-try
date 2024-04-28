@@ -13,6 +13,22 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      width: {
+        "270": "270px",
+        "480": "480px",
+      },
+      height: {
+        "480": "480px",
+      },
+      backgroundColor: {
+        "coverOpacity": "rgba(22, 28, 36, 0.64)",
+      },
+      lineHeight: {
+        "48": "48px",
+      },
+      maxWidth: {
+        "720": "720px",
+      }
     },
   },
   plugins: [],
