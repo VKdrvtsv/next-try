@@ -1,3 +1,5 @@
+'use client'
+
 import { Blog, Post } from "@/utils/types";
 import Image from "next/image";
 import { FC } from "react";

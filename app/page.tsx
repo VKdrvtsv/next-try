@@ -1,26 +1,17 @@
-"use client"
-
 import { PostCard } from "@/components/PostCard";
 import { BlogResponse } from "@/utils/types";
-// import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { useLayoutEffect, useState } from "react";
+import { notFound } from "next/navigation";
 
-export default function Home() {
-  const [blogs, setBlogs] = useState<BlogResponse>();
+async function getData() {
+  const res = await fetch('https://api-dev-minimal-v510.vercel.app/api/post/list')
+ 
+  return res.json()
+}
 
-  useLayoutEffect(() => {
-    fetch(
-      "https://api-dev-minimal-v510.vercel.app/api/post/list",
-    ).then((response) => (response.json().then(setBlogs)));
-  }, [])
+export default async function Home() {
+  const blogs: BlogResponse = await getData();
 
-  if (!blogs) {
-    return (
-      <div>
-        <p>Something went wrong</p>
-      </div>
-    )
-  }
+  if (!blogs) notFound();
 
   return (
     <div className="flex w-full flex-col gap-9 max-w-6xl">
@@ -34,9 +25,3 @@ export default function Home() {
     </div>
   );
 }
-
-// async function GetStaticProps() {
-//   const res = await fetch('https://api-dev-minimal-v510.vercel.app/api/post/list')
-//   const blogs = await res.json()
-//   return { props: { blogs } }
-// }
