@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Blog, Post } from "@/utils/types";
 import Image from "next/image";
@@ -13,10 +13,10 @@ interface Props {
 
 export const PostCard: FC<Props> = ({ post }) => {
   const date = new Date(post.createdAt);
-  const formattedDate = date.toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
+  const formattedDate = date.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
   });
 
   const normalizedTitle = paramCase(post.title);
@@ -33,7 +33,14 @@ export const PostCard: FC<Props> = ({ post }) => {
         />
 
         <Avatar.Root>
-          <Avatar.Image src={post.author.avatarUrl} alt={post.author.name} className="rounded-full border-4 border-white -translate-y-1/2 ml-5" height={48} width={48}/>
+          <Avatar.Image
+            src={post.author.avatarUrl}
+            alt={post.author.name}
+            className="rounded-full border-4 border-white -translate-y-1/2 ml-5"
+            height={48}
+            width={48}
+          />
+          <Avatar.Fallback className="w-12 h-12 rounded-full -translate-y-1/2 ml-5 border-4 border-white flex items-center justify-center bg-white">AV</Avatar.Fallback>
         </Avatar.Root>
 
         <div className="mx-6 flex flex-col gap-2 mb-6">
@@ -43,28 +50,37 @@ export const PostCard: FC<Props> = ({ post }) => {
 
         <div className="flex flex-row gap-3 mx-6 justify-end mb-6">
           <div className="flex flex-row gap-1">
-            <Image 
-            src="/icons/Icon=message.svg"
-            alt="message"
-            height={16}
-            width={16}/>
-            <p className="text-xs font-normal text-slate-400">{post.totalComments}</p>
+            <Image
+              src="/icons/Icon=message.svg"
+              alt="message"
+              height={16}
+              width={16}
+            />
+            <p className="text-xs font-normal text-slate-400">
+              {post.totalComments}
+            </p>
           </div>
           <div className="flex flex-row gap-1">
-            <Image 
-            src="/icons/Icon=eye.svg"
-            alt="message"
-            height={16}
-            width={16}/>
-            <p className="text-xs font-normal text-slate-400">{post.totalViews}</p>
+            <Image
+              src="/icons/Icon=eye.svg"
+              alt="message"
+              height={16}
+              width={16}
+            />
+            <p className="text-xs font-normal text-slate-400">
+              {post.totalViews}
+            </p>
           </div>
           <div className="flex flex-row gap-1">
-            <Image 
-            src="/icons/Icon=share.svg"
-            alt="message"
-            height={16}
-            width={16}/>
-            <p className="text-xs font-normal text-slate-400">{post.totalShares}</p>
+            <Image
+              src="/icons/Icon=share.svg"
+              alt="message"
+              height={16}
+              width={16}
+            />
+            <p className="text-xs font-normal text-slate-400">
+              {post.totalShares}
+            </p>
           </div>
         </div>
       </div>

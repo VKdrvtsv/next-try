@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={pubicSans.className}>
-        <div className="bg-white flex items-center w-full flex-col">
+        <div className="bg-white flex items-center w-full flex-col pb-10 overflow-hidden">
           <NavBar />
           {children}
         </div>

@@ -2,7 +2,7 @@
 
 import { paramCase } from "@/utils/paramCase";
 import { Blog, PostResponse } from "@/utils/types";
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { useLayoutEffect, useState } from "react";
 import * as Avatar from "@radix-ui/react-avatar";
 import Image from "next/image";
@@ -10,6 +10,8 @@ import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
+import Loader from "../loading";
+import styles from './title.module.css';
 
 export default function PostDetails() {
   const [post, setPost] = useState<PostResponse>();
@@ -22,12 +24,8 @@ export default function PostDetails() {
     ).then((response) => response.json().then(setPost));
   }, [title]);
 
-  if (!post) {
-    return (
-      <div>
-        <p>Something went wrong</p>
-      </div>
-    );
+  if(!post) {
+    return <Loader />
   }
 
   const currentPost = post.post;
@@ -52,13 +50,13 @@ export default function PostDetails() {
   const slicedPeople = currentPost.favoritePerson.slice(0, 3);
 
   return (
-    <div className="flex w-full flex-col items-center pb-10">
+    <div className="flex w-full flex-col items-center ">
       <div
         style={{ backgroundImage: `url(${currentPost.coverUrl})` }}
         className="h-480 w-screen bg-cover bg-no-repeat bg-coverOpacity items-center flex flex-col"
       >
-        <div className="max-w-6xl py-16 w-full flex flex-col justify-between h-full">
-          <h2 className="text-3xl text-white w-480 font-bold leading-48">
+        <div className="max-w-1200 px-6 py-16 w-full flex flex-col justify-between h-full">
+          <h2 className="text-3xl text-white max-w-480 w-full font-bold leading-48">
             {currentPost.title}
           </h2>
           <div className="flex flex-row justify-between items-center">
@@ -93,7 +91,7 @@ export default function PostDetails() {
         </div>
       </div>
 
-      <div className="flex flex-row gap-4 items-center max-w-720 w-full my-6">
+      <div className="flex flex-row gap-4 items-center max-w-760 px-5 w-full my-6">
         <p className="text-sm font-normal">Home</p>
         <div className="h-1 w-1 rounded-full bg-gray-400" />
         <p className="text-sm font-normal">Blog</p>
@@ -101,16 +99,17 @@ export default function PostDetails() {
         <p className="text-sm font-normal text-gray-400">{currentPost.title}</p>
       </div>
 
-      <div className="border-t w-full bg-gray-400 mb-10" />
+      <div className="border-t w-full bg-gray-400 mb-10 " />
+
 
       <ReactMarkdown
         rehypePlugins={[rehypeRaw, rehypeHighlight, [remarkGfm, { singleTilde: false }]]}
-        className="flex flex-col max-w-720"
+        className={styles.markdown}
       > 
         {currentPost.description + currentPost.content}
       </ReactMarkdown>
 
-      <div className="flex flex-col gap-6 max-w-720 w-full py-6 border-y border-grey-300 border-dashed border-dashed-lg">
+      <div className="flex flex-col gap-6 max-w-760 w-full py-6 px-5 border-y border-grey-300 border-dashed border-dashed-lg">
         <div className="flex flex-row gap-2">
           {currentPost.tags.map((word) => {
             return (
@@ -134,8 +133,8 @@ export default function PostDetails() {
           <div className="flex flex-row">
             {slicedPeople.map((person, index) => {
               const zIndex = index + 1 + "0";
-              console.log(zIndex);
-              return <div key={person.name} className={`-mr-2 -z-${zIndex}`} >
+              const styles = `-mr-2 -z-${zIndex}`;
+              return <div key={person.name} className={styles} >
                 <Avatar.Root>
                 <Avatar.Image
                   src={person.avatarUrl}

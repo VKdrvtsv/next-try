@@ -1,0 +1,13 @@
+.markdown {
+  display: flex;
+  flex-direction: column;
+  max-width: 760px;
+  padding-inline: 20px;
+  width: 100%;
+}
+
+.markdown pre {
+
+  overflow-x: scroll;
+  width: 100%;
+}
