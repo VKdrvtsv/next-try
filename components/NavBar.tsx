@@ -22,6 +22,13 @@ export const NavBar = () => {
                 </Link>
               </NavigationMenu.Link>
             </NavigationMenu.Item>
+            <NavigationMenu.Item>
+              <NavigationMenu.Link asChild>
+                <Link href="/" className="text-sm font-medium">
+                  Home2
+                </Link>
+              </NavigationMenu.Link>
+            </NavigationMenu.Item>
 
             <NavigationMenu.Item>
               <NavigationMenu.Link asChild>
